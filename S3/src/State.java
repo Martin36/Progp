@@ -13,6 +13,9 @@ public class State {
 		Character key = Character.valueOf(c);
 		this.transitions.put(key, toState);		//Add new transition to hash table
 	}
+	public Hashtable<Character, State> getTransitions(){
+		return this.transitions;
+	}
 	public void setStart(){
 		this.isStart = true;
 	}
@@ -24,5 +27,11 @@ public class State {
 	}
 	public void removeAccepting(){
 		this.isAccepting = false;
+	}
+	public boolean isStart(){
+		return this.isStart;
+	}
+	public boolean isAccepting(){
+		return this.isAccepting;
 	}
 }
