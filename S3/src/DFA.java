@@ -4,6 +4,7 @@
  * Författare: Per Austrin
  */
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
@@ -38,7 +39,9 @@ public class DFA {
 		ArrayList<String> acceptedStrings = new ArrayList<String>();
 		State startState = this.states.get(this.startState);
 		ArrayList<String> emptyList = new ArrayList<String>();
-		acceptedStrings = (ArrayList<String>) findAcceptedStrings(startState, ' ', "", emptyList, 0);
+		char[] currentString = new char[5000];
+//		acceptedStrings = (ArrayList<String>) findAcceptedStrings(startState, ' ', "", emptyList, 0);
+		acceptedStrings = (ArrayList<String>) findAcceptedStrings(startState, ' ', currentString, emptyList, 0);
 		/*
 		while(counter < maxCount){
 			//Hitta en sträng som accepteras
@@ -52,7 +55,45 @@ public class DFA {
 		
 		return acceptedStrings;
 	}
-	
+	private List<String> findAcceptedStrings(State currentState, 
+			char transitionChar, char[] currentString, List<String> foundStrings, int depth){
+		if(this.counter >= this.maxCount || depth >= this.maxDepth){
+			return foundStrings;
+		}
+		Hashtable<Character, State> transitions = currentState.getTransitions();		//Övergångarna från nuvarande tillståndet
+
+		if(!currentState.isStart()){		//Om det är start tillståndet så vill vi inte lägga till nåt tecken
+			currentString[depth] = transitionChar;		//Det tecknet som tog oss till det här tillståndet			
+		}
+		if(currentState.isStart()){			//Det är bara första gången vi inte vill lägga till tecken för start tillståndet
+			currentState.removeStart();
+		}
+		if(currentState.isAccepting()){		//Hittat en ny godkänd sträng
+			char[] string = Arrays.copyOfRange(currentString, 1, depth+1); 		//Första tecknet är default
+			foundStrings.add(String.valueOf(string));
+			this.counter++;
+		}
+		if(transitions.isEmpty()){
+			return foundStrings;
+		}
+		
+		
+		List<String> newFoundStrings = null;
+		Enumeration<Character> enumerator = transitions.keys();		//Tecknen för de olika övergångarna
+		
+		while(enumerator.hasMoreElements()){
+			Character transitionCharToNextState = enumerator.nextElement();
+			State nextState = transitions.get(transitionCharToNextState);
+			
+			newFoundStrings = findAcceptedStrings(nextState, transitionCharToNextState.charValue(),
+					currentString, foundStrings, depth+1);
+			
+		}
+		
+		return newFoundStrings;
+	}
+
+	/*
 	//Rekursiv funktion för att hitta strängar
 	private List<String> findAcceptedStrings(State currentState, 
 			char transitionChar, String currentString, List<String> foundStrings, int depth){
@@ -92,10 +133,17 @@ public class DFA {
 		
 		return newFoundStrings;
 	}
+	*/
 	//Icke rekursiv funktion
 	private List<String> findAcceptedStrings2(State startState){
 		Hashtable<Character, State> transitions = startState.getTransitions();		//Övergångarna från nuvarande tillståndet
+		int wordsFound = 0;
+		StringBuilder sb = new StringBuilder();
+		State currentState = startState;
 		
+		while(wordsFound <= maxCount){
+			
+		}
 		
 		return null;
 	}
