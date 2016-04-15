@@ -7,48 +7,44 @@ import java.util.LinkedList;
  * @version 2016-01-18
  */
 public class Account {
-	private int cardNr;
-	private int pass;
+	private String cardNr;
+	private String pass;
 	private int balance;
 	private Language lang;
 	private boolean loggedIn = false;
 //	private HashMap<Integer, Boolean> keys;
 	private LinkedList<String> keys;
 	
-	public Account(int cardNr, int pass, int balance, Language lang){
+	public Account(String cardNr, String pass, int balance, Language lang){
 		this.cardNr = cardNr;
 		this.pass = pass;
 		this.balance = balance;
 		this.lang = lang;
-		keys = new LinkedList<String>();
+		this.keys = new LinkedList<String>();
 		for(int i = 0; i < 10; i++){
 			for(int j = 1; j < 10; j += 2){
 				keys.add("" + i + "" + j);
 			}
 		}
 	}
-	public String withdraw(int cash, String key){
-		if(balance < cash){
-			return "Insufficient balance!";
-		}
+	public boolean withdraw(int cash, String key){
 		if(validateCode(key)){
 			this.balance -= cash;
-			return "Current balance: " + this.balance;			
+			return true;			
 		}
-		else{
-			return "Invalid security code!";
-		}
+		return false;
 	}
 	/**
 	 * Adds @param cash to the balance
 	 * 
 	 * @return
 	 */
-	public String deposit(int cash){
-		if(cash < 0)
-			return "Please give positive amount.";
-		this.balance += cash;
-		return "Current balance: " + this.balance;
+	public boolean deposit(int cash){
+		if(cash > 0){
+			this.balance += cash;
+			return true;
+		}
+		return false;
 	}
 	/**
 	 * Sets the language to @param newLang.
@@ -68,10 +64,10 @@ public class Account {
 	public void logOut(){
 		this.loggedIn = false;
 	}
-	public int getPass(){
+	public String getPass(){
 		return this.pass;
 	}
-	public int getCardNr(){
+	public String getCardNr(){
 		return this.cardNr;
 	}
 	public Language getLanguage(){

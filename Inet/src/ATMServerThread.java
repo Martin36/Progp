@@ -15,11 +15,13 @@ public class ATMServerThread extends Thread {
 	private Account acc;
 	private Account[] accounts;
 	private Sprak sprak;
+	private String commercial;
 
-	public ATMServerThread(Socket socket, Account[] accounts) {
+	public ATMServerThread(Socket socket, Account[] accounts, String commercial) {
 		super("ATMServerThread");
 		this.socket = socket;
 		this.accounts = accounts;
+		this.commercial = commercial;
 	}
 
 	private String readLine() throws IOException {
@@ -27,13 +29,13 @@ public class ATMServerThread extends Thread {
 		return str;
 	}
 
-	private boolean validateUser(int pass) {
-		return acc.getPass() == pass;
+	private boolean validateUser(String pass) {
+		return acc.getPass().equals(pass) ;
 	}
 	
-	private boolean checkUser(int cardNr){
+	private boolean checkUser(String cardNr){
 		for(int i = 0; i < accounts.length; i++ ){
-			if(accounts[i].getCardNr() == cardNr){
+			if(accounts[i].getCardNr().equals(cardNr)){
 				acc = accounts[i];
 				return true;
 			}
@@ -52,7 +54,7 @@ public class ATMServerThread extends Thread {
 			sendLine("Welcome to Bank! Please write card number.");
 			inputLine = in.readLine();
 			//Check if the entered card number is in the database
-			if(!checkUser(Integer.parseInt(inputLine))){
+			if(!checkUser(inputLine)){
 				sendLine("Account not found in database!");
 				System.exit(1);
 			}
@@ -60,7 +62,7 @@ public class ATMServerThread extends Thread {
 			sendLine("Enter pass: ");
 			inputLine = in.readLine();
 			//Check if the user enters the correct password
-			if(!validateUser(Integer.parseInt(inputLine))){
+			if(!validateUser(inputLine)){
 				sendLine("Wrong password!");
 				System.exit(1);
 			}
@@ -68,8 +70,7 @@ public class ATMServerThread extends Thread {
 			sprak = new Sprak(acc.getLanguage());		//Sets the preferred language
 			
 //			sendLine("Welcome to Bank! (1)Balance, (2)Withdrawal, (3)Deposit, (4)Exit");
-			sendLine(sprak.options());			//Sends the options menu on the correct language 
-			
+			sendLine(sprak.options() + ' ' + commercial);			//Sends the options menu on the correct language 
 			inputLine = readLine();
 			int choice = Integer.parseInt(inputLine);
 			while (choice != 5) {
@@ -83,13 +84,18 @@ public class ATMServerThread extends Thread {
 					value = Integer.parseInt(inputLine);
 					sendLine(sprak.insertSecurityCode());
 					inputLine = readLine();
-					sendLine(acc.withdraw(value, inputLine));		//Withdraws the amount specified if possible then writes the current balance
+					if(acc.withdraw(value, inputLine)){
+						sendLine(sprak.currentBalance(acc.getBalance()));		//Withdraws the amount specified if possible then writes the current balance
+					}
 					break;
 				case 3:
 					sendLine(sprak.typeAmount());
 					inputLine = readLine();
 					value = Integer.parseInt(inputLine);
-					sendLine(acc.deposit(value));		//Deposits the specified amount to the account
+					if(acc.deposit(value)){
+						sendLine(sprak.currentBalance(acc.getBalance()));		//Deposits the specified amount to the account
+						
+					}
 					break;
 				case 4:
 					sendLine("(1)English, (2)Svenska");

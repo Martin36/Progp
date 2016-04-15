@@ -122,7 +122,7 @@ public class Sprak {
 			return "Ange säkerhetskod: ";
 		default:
 			return "Unknown language.";
-		}
-		
+		}		
 	}
+	
 }

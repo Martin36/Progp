@@ -35,20 +35,21 @@ public class ATMClient {
         System.exit(1);
 	    }
 
-	    System.out.println("Contacting bank ... ");
+	    System.out.println("Contacting bank ... "); 
 	    System.out.println(in.readLine()); 
 
 	    Scanner scanner = new Scanner(System.in);
 	    System.out.print("> ");
-	    int cardNr = scanner.nextInt();		//Reads the user inputed card number
+	    String cardNr = scanner.nextLine();		//Reads the user inputed card number
 	    out.println(cardNr);			//Sends the card number to the server
 	    
 	    System.out.println(in.readLine());		//Asks for the password
 	    System.out.print("> ");
-	    int pass = scanner.nextInt(); 		//Reads the user inputed password
+	    String pass = scanner.nextLine(); 		//Reads the user inputed password
 	    out.println(pass);
 	    
 	    System.out.println(in.readLine());
+	    
 	    System.out.print("> ");
 	    int menuOption = scanner.nextInt();
 	    int userInput;
