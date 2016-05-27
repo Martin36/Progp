@@ -23,13 +23,12 @@ public class Sprak {
 				return "Unknown language.";
 		}
 	}
-	//Skriv rätt retur strängar!!!
 	public String cardNr(){
 		switch (lang){
 		case ENGLISH:
-			return "Current balance: ";
+			return "Enter card number: ";
 		case SVENSKA:
-			return "Saldo: ";
+			return "Skriv in kortnummer: ";
 		default:
 			return "Unknown language.";
 		}
@@ -37,9 +36,9 @@ public class Sprak {
 	public String pass(){
 		switch (lang){
 		case ENGLISH:
-			return "Current balance: ";
+			return "Enter password: ";
 		case SVENSKA:
-			return "Saldo: ";
+			return "Skriv in lösenord: ";
 		default:
 			return "Unknown language.";
 		}
@@ -47,9 +46,9 @@ public class Sprak {
 	public String loggedIn(){
 		switch (lang){
 		case ENGLISH:
-			return "Current balance: ";
+			return "You have successfully logged in!";
 		case SVENSKA:
-			return "Saldo: ";
+			return "Du har loggat in!";
 		default:
 			return "Unknown language.";
 		}
@@ -69,7 +68,7 @@ public class Sprak {
 		case ENGLISH:
 			return "(1)Balance, (2)Withdrawal, (3)Deposit, (4)Change Language, (5)Exit";
 		case SVENSKA:
-			return "(1)Saldo, (2)Uttag, (3)Isättning, (4)Byt Språk, (5)Avsluta";
+			return "(1)Saldo, (2)Uttag, (3)Insättning, (4)Byt Språk, (5)Avsluta";
 		default:
 			return "Unknown language.";
 		}
@@ -117,12 +116,22 @@ public class Sprak {
 	public String invalidSecurityCode(){
 		switch (lang){
 		case ENGLISH:
-			return "Insert security code: ";
+			return "Invalid security code ";
 		case SVENSKA:
-			return "Ange säkerhetskod: ";
+			return "Fel säkerhetskod";
 		default:
 			return "Unknown language.";
 		}		
+	}
+	public String errWith(){
+		switch (lang){
+		case ENGLISH:
+			return "Error withdrawing cash!";
+		case SVENSKA:
+			return "Uttagsfel!";
+		default:
+			return "Unknown language.";						
+		}
 	}
 	
 }

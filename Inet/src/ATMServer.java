@@ -5,8 +5,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 
-/**
- * @author Viebrapadata
+/*
+ * @author Martin & David
+ * @version 2016-05-27
  */
 public class ATMServer {
 
@@ -16,7 +17,7 @@ public class ATMServer {
 
 	public static void main(String[] args) throws IOException {
 		Account[] accounts = { new Account("1111", "1234", 10000, Language.ENGLISH),
-													 new Account("2222", "4321", 10000000, Language.SVENSKA), 
+													 new Account("1234567891234", "4321", 10000000, Language.SVENSKA), 
 													 new Account("3333", "2345", 9857673, Language.ENGLISH) };
 	
 		ServerSocket serverSocket = null;

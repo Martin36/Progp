@@ -28,6 +28,9 @@ public class Account {
 		}
 	}
 	public boolean withdraw(int cash, String key){
+		if(cash > this.balance){
+			return false;
+		}
 		if(validateCode(key)){
 			this.balance -= cash;
 			return true;			

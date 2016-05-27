@@ -62,9 +62,11 @@ public class ATMServerThread extends Thread {
 			sendLine("Enter pass: ");
 			inputLine = in.readLine();
 			//Check if the user enters the correct password
-			if(!validateUser(inputLine)){
-				sendLine("Wrong password!");
-				System.exit(1);
+			while(!validateUser(inputLine)){
+				sendLine("Wrong password, try again!");
+				//sendLine("Enter pass: ");
+				inputLine = in.readLine();
+
 			}
 			acc.logIn();		//Here we have enough information to log in to the account
 			sprak = new Sprak(acc.getLanguage());		//Sets the preferred language
@@ -86,6 +88,9 @@ public class ATMServerThread extends Thread {
 					inputLine = readLine();
 					if(acc.withdraw(value, inputLine)){
 						sendLine(sprak.currentBalance(acc.getBalance()));		//Withdraws the amount specified if possible then writes the current balance
+					}
+					else{
+						sendLine(sprak.errWith());
 					}
 					break;
 				case 3:
