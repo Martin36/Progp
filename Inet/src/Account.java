@@ -28,7 +28,7 @@ public class Account {
 		}
 	}
 	public boolean withdraw(int cash, String key){
-		if(cash > this.balance){
+		if(cash > this.balance || cash <= 0){
 			return false;
 		}
 		if(validateCode(key)){
@@ -61,6 +61,7 @@ public class Account {
 	public void logIn(){
 		this.loggedIn = true;
 	}
+	public boolean loggedIn(){ return this.loggedIn; }
 	/**
 	 * Call if account is logged out.
 	 */

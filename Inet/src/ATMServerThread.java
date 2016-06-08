@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.Arrays;
 
 /**
- * @author Viebrapadata
+ * @author yo
  */
 public class ATMServerThread extends Thread {
 	private Socket socket = null;
@@ -37,7 +37,8 @@ public class ATMServerThread extends Thread {
 		for(int i = 0; i < accounts.length; i++ ){
 			if(accounts[i].getCardNr().equals(cardNr)){
 				acc = accounts[i];
-				return true;
+				if(!acc.loggedIn())
+					return true;
 			}
 		}
 		return false;
@@ -55,7 +56,7 @@ public class ATMServerThread extends Thread {
 			inputLine = in.readLine();
 			//Check if the entered card number is in the database
 			if(!checkUser(inputLine)){
-				sendLine("Account not found in database!");
+				sendLine("Account not found in database or already logged in!");
 				System.exit(1);
 			}
 			
