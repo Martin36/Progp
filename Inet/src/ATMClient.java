@@ -17,6 +17,7 @@ public class ATMClient {
 	PrintWriter out = null;
 	BufferedReader in = null;
 	String adress = "";
+	Scanner scanner;
 
 	public ATMClient(String adress) throws IOException {
 
@@ -37,110 +38,35 @@ public class ATMClient {
 			System.err.println("Couldn't open connection to " + adress);
 			System.exit(1);
 		}
+	  scanner = new Scanner(System.in);
 
-		System.out.println("Contacting bank ... ");
-		System.out.println(in.readLine());
-
-		Scanner scanner = new Scanner(System.in);
-		System.out.print("> ");
-		String cardNr = scanner.nextLine(); // Reads the user inputed card
-											// number
-		sendLine(cardNr); // Sends the card number to the server
-
-		System.out.println(in.readLine()); // Asks for the password
-		System.out.print("> ");
-		String pass = scanner.nextLine(); // Reads the user inputed password
-		sendLine(pass);
-
-		String curr;
-		while ((curr = in.readLine()).equals("Wrong password, try again!")) {
-			System.out.println(curr);
-			System.out.print("> ");
-			pass = scanner.nextLine(); // Reads the user inputed password
-			sendLine(pass);
-		}
-
-		System.out.println(curr); // Prints the menu
-		System.out.print("> ");
-		int menuOption = scanner.nextInt();
-		int userInput;
-		sendLine(menuOption + "");
-
-		while (menuOption != 5) {
-
-			if (menuOption == 1) { // Balance
-			System.out.println(in.readLine());
-			System.out.println(in.readLine());
-			System.out.print("> ");
-			menuOption = scanner.nextInt();
-			sendLine(menuOption + "");
-			}
-
-			else if (menuOption == 2) { // Withdrawal
-			System.out.println(in.readLine());
-			userInput = scanner.nextInt();
-			sendLine(userInput + "");
-			System.out.println(in.readLine());
-			String key = scanner.next(); // Reads input valid code line
-			sendLine(key); // The key input made by the user
-			String str;
-			do {
-				str = in.readLine();
-				System.out.println(str);
-			} while (!str.startsWith("(1)"));
-			System.out.print("> ");
-			menuOption = scanner.nextInt();
-			sendLine(menuOption + "");
-			}
-
-			else if (menuOption == 3) {
-			System.out.println(in.readLine());
-			userInput = scanner.nextInt();
-			sendLine(userInput + "");
-			String str;
-			do {
-				str = in.readLine();
-				System.out.println(str);
-			} while (!str.startsWith("(1)"));
-			System.out.print("> ");
-			menuOption = scanner.nextInt();
-			sendLine(menuOption + "");
-
-			}
-
-			else if (menuOption == 4) { // Arrives here if language option is
-										// selected in menu
-			System.out.println(in.readLine());
-			System.out.print("> ");
-			userInput = scanner.nextInt();
-			sendLine(userInput + "");
-			System.out.println(in.readLine());
-			System.out.print("> ");
-			userInput = scanner.nextInt();
-			menuOption = userInput;
-			sendLine(userInput + "");
-			}
-
-			else if (menuOption == 5) {
-			break;
-			}
-
-			else {
-			System.out.println(in.readLine());
-			System.out.print("> ");
-			menuOption = scanner.nextInt();
-			sendLine(menuOption + "");
-			}
-		}
-		scanner.close();
-		out.close();
-		in.close();
-		ATMSocket.close();
+		communication();
 
 	}
 
 	public static void main(String[] args) throws IOException {
 		ATMClient client = new ATMClient(args[0]);
+	}
+	
+	private void communication() throws IOException{
+		System.out.println("Contacting bank ... ");
+		String userInput;
+
+		do{
+			System.out.println(in.readLine());
+			if(in.ready()){
+				System.out.println(in.readLine());				
+			}
+			System.out.print("> ");
+			userInput = scanner.nextLine(); 											
+			sendLine(userInput); 
+		} while(!userInput.equals("5"));
+		
+		scanner.close();
+		out.close();
+		in.close();
+		ATMSocket.close();
+		
 	}
 	
 	private void sendLine(String s) {

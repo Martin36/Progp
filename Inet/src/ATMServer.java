@@ -21,7 +21,6 @@ public class ATMServer {
 													 new Account("3333", "2345", 9857673, Language.ENGLISH) };
 	
 		ServerSocket serverSocket = null;
-//		Scanner scanner = new Scanner(System.in);
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		boolean listening = true;
 	
@@ -37,7 +36,6 @@ public class ATMServer {
 		Socket socket;
 		while (listening) {
 			try {
-//				System.out.println("Hej!");
 				socket = serverSocket.accept();
 				if (socket.isConnected()) {
 					System.out.println("Socket Connected!!!!");
