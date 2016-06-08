@@ -142,7 +142,7 @@ public class ATMClient {
 	public static void main(String[] args) throws IOException {
 		ATMClient client = new ATMClient(args[0]);
 	}
-
+	
 	private void sendLine(String s) {
 		char[] c = s.toCharArray();
 
