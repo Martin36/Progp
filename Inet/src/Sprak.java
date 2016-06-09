@@ -38,7 +38,7 @@ public class Sprak {
 		case ENGLISH:
 			return "Enter password: ";
 		case SVENSKA:
-			return "Skriv in lˆsenord: ";
+			return "Skriv in l√∂senord: ";
 		default:
 			return "Unknown language.";
 		}
@@ -58,7 +58,7 @@ public class Sprak {
 		case ENGLISH:
 			return "Welcome to this ATM, we wish you a pleasant experience";
 		case SVENSKA:
-			return "V‰lkommen till bankomaten ";
+			return "V√§lkommen till bankomaten ";
 		default:
 			return "Unknown language.";
 		}
@@ -68,7 +68,7 @@ public class Sprak {
 		case ENGLISH:
 			return "(1)Balance, (2)Withdrawal, (3)Deposit, (4)Change Language, (5)Exit";
 		case SVENSKA:
-			return "(1)Saldo, (2)Uttag, (3)Ins‰ttning, (4)Byt SprÂk, (5)Avsluta";
+			return "(1)Saldo, (2)Uttag, (3)Ins√§ttning, (4)Byt Spr√•k, (5)Avsluta";
 		default:
 			return "Unknown language.";
 		}
@@ -88,7 +88,7 @@ public class Sprak {
 		case ENGLISH:
 			return "Insufficient balance!";
 		case SVENSKA:
-			return "Utillr‰ckligt saldo!";
+			return "Utillr√§ckligt saldo!";
 		default:
 			return "Unknown language.";
 		}
@@ -98,7 +98,7 @@ public class Sprak {
 		case ENGLISH:
 			return "Please enter positive amount.";
 		case SVENSKA:
-			return "Var god ange positivt v‰rde.";
+			return "Var god ange positivt v√§rde.";
 		default:
 			return "Unknown language.";
 		}
@@ -108,7 +108,7 @@ public class Sprak {
 		case ENGLISH:
 			return "Insert security code: ";
 		case SVENSKA:
-			return "Ange s‰kerhetskod: ";
+			return "Ange s√§kerhetskod: ";
 		default:
 			return "Unknown language.";
 		}
@@ -118,7 +118,7 @@ public class Sprak {
 		case ENGLISH:
 			return "Invalid security code ";
 		case SVENSKA:
-			return "Fel s‰kerhetskod";
+			return "Fel s√§kerhetskod";
 		default:
 			return "Unknown language.";
 		}		

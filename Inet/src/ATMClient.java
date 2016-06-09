@@ -51,16 +51,25 @@ public class ATMClient {
 	private void communication() throws IOException{
 		System.out.println("Contacting bank ... ");
 		String userInput;
+		String textFromServer;
+		boolean activeMenu = false;
 
 		do{
-			System.out.println(in.readLine());
+			activeMenu = false;
+			textFromServer = in.readLine();
+			System.out.println(textFromServer);
+			
 			if(in.ready()){
-				System.out.println(in.readLine());				
+				textFromServer = in.readLine();
+				System.out.println(textFromServer);				
 			}
+			if(textFromServer.startsWith("(1)"))
+				activeMenu = true;
 			System.out.print("> ");
 			userInput = scanner.nextLine(); 											
 			sendLine(userInput); 
-		} while(!userInput.equals("5"));
+		} while(!userInput.equals("5") || !activeMenu);
+		System.out.println(in.readLine());
 		
 		scanner.close();
 		out.close();

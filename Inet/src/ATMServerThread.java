@@ -125,7 +125,7 @@ public class ATMServerThread extends Thread {
 				choice = Integer.parseInt(inputLine);
 			}
 			acc.logOut();
-			sendLine("Good Bye");
+			sendLine("Good Bye!");
 			out.close();
 			in.close();
 			socket.close();
