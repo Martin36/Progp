@@ -42,6 +42,7 @@ public class ATMClient {
 		System.out.println(in.readLine());
 
 		Scanner scanner = new Scanner(System.in);
+
 		System.out.print("> ");
 		String cardNr = scanner.nextLine(); // Reads the user inputed card
 											// number

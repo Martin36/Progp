@@ -55,7 +55,7 @@ public class ATMServerThread extends Thread {
 			sendLine("Welcome to Bank! Please write card number.");
 			inputLine = in.readLine();
 			//Check if the entered card number is in the database
-			if(!checkUser(inputLine)){
+			while(!checkUser(inputLine)){
 				sendLine("Account not found in database or already logged in!");
 				System.exit(1);
 			}
